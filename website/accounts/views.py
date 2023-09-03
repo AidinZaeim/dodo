@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import RegisterForm
+from .forms import RegisterForm, LoginForm
 from .models import CustomUser
 from django.forms import ValidationError
 from django.views import View
 from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth.views import LoginView
 
 message_dict = {
     "short": "رمز عبور باید حداقل ۸ کاراکتر باشد",
@@ -14,7 +15,7 @@ message_dict = {
 }
 
 
-class UserRegister(View):
+class CustomUserRegister(View):
 
     def get(self, request):
         return render(request, "accounts/register.html", {"forms": RegisterForm(request.POST)})
@@ -40,4 +41,14 @@ class UserRegister(View):
             messages.success(request, message_dict["signed_up"])
             return redirect("accounts:login")
 
-        return render(request, "accounts/register.html", {"form": self.form})
+        return render(request, "accounts:register", {"form": self.form})
+
+
+class CustomLoginView(LoginView):
+    template_name = 'accounts/login.html'
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return redirect("panel:management")
