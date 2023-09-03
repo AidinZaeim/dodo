@@ -17,7 +17,7 @@ class RegisterForm(forms.ModelForm):
         model = CustomUser
         fields = ["Email", "Password1", "Password2"]
 
-class AuthenticationForm(forms.ModelForm):
+class LoginForm(forms.ModelForm):
     UserName = forms.CharField(max_length=255)
     Password = forms.CharField(widget=forms.PasswordInput)
 

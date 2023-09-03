@@ -4,14 +4,18 @@ from .forms import RegisterForm, LoginForm
 from .models import CustomUser
 from django.forms import ValidationError
 from django.views import View
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.password_validation import validate_password
-from django.contrib.auth.views import LoginView
+
 
 message_dict = {
     "short": "رمز عبور باید حداقل ۸ کاراکتر باشد",
     "common": "رمز عبور تکراری است؛",
     "all_numeric": "رمز عبور باید شامل حروف نیز باشد",
-    "signed_up": "ثبت نام با موفقیت انجام شد"
+    "signed_up": "ثبت نام با موفقیت انجام شد",
+    "integrity_error": "ایمیل تکراری است",
+    "login": "ورود با موفقیت انجام شد",
+    "login_error": "خظا در ورود: کاربر وجود ندارد"
 }
 
 
@@ -25,6 +29,10 @@ class CustomUserRegister(View):
         if form.is_valid():
             cd = form.cleaned_data
             print(cd)
+            existing_users = CustomUser.objects.filter(email=cd["Email"]).exists()
+            if existing_users:
+                messages.error(request,message_dict["integrity_error"])
+                return redirect(request.META.get('HTTP_REFERER'))
             try:
                 validate_password(cd["Password1"])
             except ValidationError as validation_error:
@@ -36,19 +44,30 @@ class CustomUserRegister(View):
                     if ('This password is entirely numeric.' == message):
                         messages.error(request,message_dict["all_numeric"])
                 return redirect("accounts:register")
-
             CustomUser.objects.create_user(cd["Email"], cd["Password1"])
             messages.success(request, message_dict["signed_up"])
+
             return redirect("accounts:login")
 
-        return render(request, "accounts:register", {"form": self.form})
+        return render(request, "accounts/register.html", {"form": self.form})
 
 
-class CustomLoginView(LoginView):
-    template_name = 'accounts/login.html'
+class CustomLoginView(View):
+    def get(self, request):
+        return render(request, "accounts/login.html", {"form": LoginForm})
 
-    def form_valid(self, form):
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return redirect("panel:management")
+    def post(self, request):
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            user = authenticate(request, email=cd['UserName'], password=cd['Password'])
+            if user is not None:
+                login(request, user)
+                messages.success(request, message_dict["login"])
+                if 'next' in request.GET:
+                    return redirect(request.GET['next'])
+                else:
+                    return redirect("panel:management")
+            else:
+                messages.error(request, message_dict['login_error'])
+                return redirect("accounts:login")
