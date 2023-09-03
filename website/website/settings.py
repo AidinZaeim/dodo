@@ -3,6 +3,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ok^gj#)u8suaqv-^6tv3sj&t9r@1&p(=ytxy7&jgte%iqj+vt='
 DEBUG = True
 ALLOWED_HOSTS = []
+AUTH_USER_MODEL = "accounts.CustomUser"
 
 
 # Application definition
