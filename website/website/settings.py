@@ -20,6 +20,7 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [
     'home',
     'accounts',
+    'panel',
 ]
 
 MIDDLEWARE = [
