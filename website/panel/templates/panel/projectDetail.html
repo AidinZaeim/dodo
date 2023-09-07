@@ -80,7 +80,7 @@
         </li>
       </ul>
       <ul class="category-list">
-        <li class="item">
+        <li class="item" href="sdfskldf.html">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="feather feather-users">
@@ -119,7 +119,7 @@
     </div>
   </div>
   <div class="page-content">
-    <div class="header">Today Tasks</div>
+    <div class="header">{{project}}</div>
     <div class="content-categories">
       <div class="label-wrapper">
         <input class="nav-item" name="nav" type="radio" id="opt-1">
@@ -139,77 +139,24 @@
       </div>
     </div>
     <div class="tasks-wrapper">
+      {% for section in sections %}
+      <div class="header upcoming">{{section.name}}</div>
+
+    
+      {% for task in section.tasks.all %}
+
       <div class="task">
-        <input class="task-item" name="task" type="checkbox" id="item-1" checked>
-        <label for="item-1">
-          <span class="label-text">Dashboard Design Implementation</span>
+        <input class="task-item" name="task" type="checkbox" id="task-{{task.id}}">
+        <label for="task-{{task.id}}">
+          <span class="label-text">{{task.label}}</span>
         </label>
         <span class="tag approved">Approved</span>
       </div>
-      <div class="task">
-        <input class="task-item" name="task" type="checkbox" id="item-2" checked>
-        <label for="item-2">
-          <span class="label-text">Create a userflow</span>
-        </label>
-        <span class="tag progress">In Progress</span>
-      </div>
-      <div class="task">
-        <input class="task-item" name="task" type="checkbox" id="item-3">
-        <label for="item-3">
-          <span class="label-text">Application Implementation</span>
-        </label>
-        <span class="tag review">In Review</span>
-      </div>
-      <div class="task">
-        <input class="task-item" name="task" type="checkbox" id="item-4">
-        <label for="item-4">
-          <span class="label-text">Create a Dashboard Design</span>
-        </label>
-        <span class="tag progress">In Progress</span>
-      </div>
-      <div class="task">
-        <input class="task-item" name="task" type="checkbox" id="item-5">
-        <label for="item-5">
-          <span class="label-text">Create a Web Application Design</span>
-        </label>
-        <span class="tag approved">Approved</span>
-      </div>
-      <div class="task">
-        <input class="task-item" name="task" type="checkbox" id="item-6">
-        <label for="item-6">
-          <span class="label-text">Interactive Design</span>
-        </label>
-        <span class="tag review">In Review</span>
-      </div>
-      <div class="header upcoming">Upcoming Tasks</div>
-      <div class="task">
-        <input class="task-item" name="task" type="checkbox" id="item-7">
-        <label for="item-7">
-          <span class="label-text">Dashboard Design Implementation</span>
-        </label>
-        <span class="tag waiting">Waiting</span>
-      </div>
-      <div class="task">
-        <input class="task-item" name="task" type="checkbox" id="item-8">
-        <label for="item-8">
-          <span class="label-text">Create a userflow</span>
-        </label>
-        <span class="tag waiting">Waiting</span>
-      </div>
-      <div class="task">
-        <input class="task-item" name="task" type="checkbox" id="item-9">
-        <label for="item-9">
-          <span class="label-text">Application Implementation</span>
-        </label>
-        <span class="tag waiting">Waiting</span>
-      </div>
-      <div class="task">
-        <input class="task-item" name="task" type="checkbox" id="item-10">
-        <label for="item-10">
-          <span class="label-text">Create a Dashboard Design</span>
-        </label>
-        <span class="tag waiting">Waiting</span>
-      </div>
+
+        {% endfor %}
+      
+      
+      {% endfor %}
     </div>
   </div>
   <div class="right-bar">

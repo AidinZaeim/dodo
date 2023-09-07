@@ -15,12 +15,13 @@ class ProjectDetail(View):
     def get(self,request,id):
         projects_obj = Project.objects.get(id=id)
 
-        # tasks = projects_obj.tasks.all().order_by("deadline")
+        sections = projects_obj.sections.all()
+        
 
 
         Info = {
             'project' : projects_obj,
-            # 'tasks' : tasks,
+            'sections' : sections,
         }
 
 
