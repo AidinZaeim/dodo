@@ -22,12 +22,12 @@ class Section(models.Model):
 
 class Task(models.Model):
     priority_choices = (
-        ('a' , 'مهم و فوری'),
-        ('b' ,'مهم و غیر فوری'),
-        ('c' ,'غیر مهم و فوری'),
-        ('d' ,'غیر مهم و غیر فوری'),
+        ('a',  'مهم و فوری'),
+        ('b', 'مهم و غیر فوری'),
+        ('c', 'غیر مهم و فوری'),
+        ('d', 'غیر مهم و غیر فوری'),
     )
-    creator = models.ForeignKey(CustomUser,null=True,blank=True,related_name="craeted_tasks",on_delete=models.CASCADE)
+    creator = models.ForeignKey(CustomUser,related_name="craeted_tasks",on_delete=models.CASCADE)
     under_taker = models.ForeignKey(CustomUser,null=True,blank=True,related_name="tasks",on_delete=models.CASCADE)
     label = models.CharField(max_length=100)
     check_box = models.BooleanField(default=False)
@@ -40,3 +40,7 @@ class Task(models.Model):
 
     def __str__(self):
         return self.label
+
+class label(models.Model):
+    name = models.CharField(max_length=50)
+    project = models.ForeignKey(Project, related_name="labels", on_delete=models.CASCADE)
