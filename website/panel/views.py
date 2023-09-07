@@ -14,7 +14,6 @@ class ProjectDetail(View):
 
     def get(self,request,id):
         projects_obj = Project.objects.get(id=id)
-
         sections = projects_obj.sections.all()
         
 
