@@ -200,15 +200,15 @@ class get_csrf_token(APIView):
 #         except User.DoesNotExist:
 #             return Response({'detail': 'user not found.'}, status=status.HTTP_404_NOT_FOUND)
 #------------------------------------
-# class UserDetailView(APIView):
-#     permission_classes = [IsAuthenticated]
-#     def get(self, request):
-#         try:
-#             user = request.user
-#             serializer = UserDetailSerializer(user)
-#             return Response(serializer.data, status=status.HTTP_200_OK)
-#         except User.DoesNotExist:
-#             return Response({'detail': 'user not found.'}, status=status.HTTP_404_NOT_FOUND)
+class UserDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        try:
+            user = request.user
+            serializer = UserDetailSerializer(user)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response({'detail': 'user not found.'}, status=status.HTTP_404_NOT_FOUND)
 #------------------------------------
 # class ProfileImageUpdateView(APIView):
 #     def put(self, request,pk):

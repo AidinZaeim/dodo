@@ -18,6 +18,6 @@ urlpatterns = [
     # path('users/update/password/', PasswordChangeRequest.as_view(), name='user-chagne-password-request'),
     # path('users/update/image/<int:pk>/', ProfileImageUpdateView.as_view(), name='user-update-image'),
     # path('users/change/password/', ChangePassword.as_view(), name='user-chagne-password'),
-    # path('users/detail/', UserDetailView.as_view(), name='user-detail'),
+    path('users/detail/', UserDetailView.as_view(), name='user-detail'),
     # path('users/detail/<int:pk>/', UserDetailPKView.as_view(), name='user-pk-detail'),
 ]
