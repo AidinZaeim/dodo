@@ -4,12 +4,11 @@ from .models import Project
 # Create your views here.
 
 
-class Management(View):
+# class Management(View):
 
-    def get(self,request):
-        return render(request,"panel/management.html")
-    
-
+#     def get(self,request):
+#         return render(request,"panel/management.html")
+#------------------------------------
 class ProjectDetail(View):
 
     def get(self,request,id):
@@ -25,4 +24,4 @@ class ProjectDetail(View):
 
 
         return render(request,"panel/projectDetail.html",Info) 
-    
+#------------------------------------    
